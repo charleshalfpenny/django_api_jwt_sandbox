@@ -6,6 +6,7 @@ from rest_framework import generics, viewsets, status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.exceptions import ParseError
 
+from rest_framework.permissions import IsAuthenticated    # for JWT toke authentication
 
 
 from .serializers import *
@@ -15,6 +16,14 @@ from .filters import *
 
 def index(request):
   return HttpResponse("<h1>API JSW Sandbox</h1")
+
+
+# JWT Testing
+class ProtectedView(APIView):
+  permission_classes = [IsAuthenticated]
+
+  def get(self, request):
+    return Response({"message": "You are authenticated!"})  
 
 
 # Employee
